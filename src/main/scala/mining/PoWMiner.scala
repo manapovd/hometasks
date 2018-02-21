@@ -8,7 +8,7 @@ class PoWMiner[HF <: CryptographicHash32](hashFunction: HF) {
 
   private val MaxTarget: BigInt = BigInt(1, Array.fill(32)((-1).toByte))
 
-  def doWork(data: Array[Byte], difficulty: BigInt): ProvedData = ???
+  def doWork(data: Array[Byte], difficulty: BigInt): ProvedData = Iterator.from(1).map{x => ProvedData(data, x)}.find(validateWork(_, difficulty)).get
 
   def validateWork(data: ProvedData, difficulty: BigInt): Boolean = realDifficulty(data) >= difficulty
 
